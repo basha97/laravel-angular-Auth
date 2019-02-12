@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { JarwisService } from 'src/app/services/jarwis.service';
 
 @Component({
@@ -19,7 +19,8 @@ export class ResponseResetComponent implements OnInit {
 
   	constructor(
 		  	private route: ActivatedRoute,
-			private jarwish: JarwisService
+			private jarwish: JarwisService,
+			private router: Router
 		  ) { 
 		  route.queryParams.subscribe(params => {
 			this.form.resetToken = params['token'];
@@ -37,11 +38,11 @@ export class ResponseResetComponent implements OnInit {
 	}
 
 	handleResponse(data){
-
+		this.router.navigateByUrl('/login');
 	}
 
 	handleError(error){
-
+		console.log(error);
 	}
 
 }
