@@ -22,13 +22,15 @@ export class RequestResetComponent implements OnInit {
     }
 
     onSubmit(){
+        this.notify.info('wait....',{timeout:5000})
         this.jarwish.sendPasswordResetLink(this.form).subscribe(
             data => this.handleResponse(data),
-            error => console.log(error)
+            error => this.notify.error(error.error.error)
         );
     }
 
     handleResponse(res){
+        this.notify.success(res.data,{timeout: 0})
         console.log(res);
         this.form.email = null;
     }

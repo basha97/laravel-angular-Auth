@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
 import { JarwisService } from 'src/app/services/jarwis.service';
+import { SnotifyService } from 'ng-snotify';
 
 @Component({
   selector: 'app-response-reset',
@@ -19,8 +20,9 @@ export class ResponseResetComponent implements OnInit {
 
   	constructor(
 		  	private route: ActivatedRoute,
-			private jarwish: JarwisService,
-			private router: Router
+				private jarwish: JarwisService,
+				private router: Router,
+				private Notify: SnotifyService
 		  ) { 
 		  route.queryParams.subscribe(params => {
 			this.form.resetToken = params['token'];
@@ -38,11 +40,23 @@ export class ResponseResetComponent implements OnInit {
 	}
 
 	handleResponse(data){
-		this.router.navigateByUrl('/login');
+
+		let _router = this.router;
+		this.Notify.confirm('Done !, Now login with new password ',{
+			buttons:[
+				{text: 'Okay',
+				 action: toaster => {
+					 _router.navigateByUrl('/login'),
+					 this.Notify.remove(toaster.id)
+				 } 
+				}
+			]
+		})
+		
 	}
 
 	handleError(error){
-		console.log(error);
+		this.error = error.error.errors;
 	}
 
 }
