@@ -18,6 +18,6 @@ Route::group([
     Route::post('resetPassword','ChangePasswordController@process');
 
     //task
-    Route:post('addTask','apiController@addTask');
+    Route::post('addTask','apiController@addTask');
 
 });
