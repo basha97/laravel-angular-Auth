@@ -17,4 +17,7 @@ Route::group([
     Route::post('sendPasswordResetLink','ResetPasswordController@sendEmail');
     Route::post('resetPassword','ChangePasswordController@process');
 
+    //task
+    Route:post('addTask','apiController@addTask');
+
 });
